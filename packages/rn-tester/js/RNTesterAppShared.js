@@ -32,6 +32,7 @@ import {
   StyleSheet,
   View,
   useColorScheme,
+  SafeAreaView,
 } from 'react-native';
 
 // RNTester App currently uses in memory storage for storing navigation state
@@ -225,6 +226,7 @@ const RNTesterApp = ({
 
   return (
     <RNTesterThemeContext.Provider value={theme}>
+    <SafeAreaView style={styles.safeArea}>
       <RNTTitleBar
         title={title}
         theme={theme}
@@ -255,6 +257,7 @@ const RNTesterApp = ({
           handleNavBarPress={handleNavBarPress}
         />
       </View>
+    </SafeAreaView>
     </RNTesterThemeContext.Provider>
   );
 };
@@ -270,5 +273,9 @@ const styles = StyleSheet.create({
   },
   hidden: {
     display: 'none',
+  },
+  safeArea: {
+    flex: 1,
+    height: 1000,
   },
 });
