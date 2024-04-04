@@ -20,7 +20,8 @@
     "clean-android": "rm -rf android/app/build",
     "setup-ios-jsc": "bundle install && USE_HERMES=0 bundle exec pod install",
     "setup-ios-hermes": "bundle install && USE_HERMES=1 bundle exec pod install",
-    "clean-ios": "rm -rf build/generated/ios Pods Podfile.lock"
+    "clean-ios": "rm -rf build/generated/ios Pods Podfile.lock",
+    "setup-ruby-env": "mkdir -p .bundle && cp ../../.bundle/config .bundle && bundle install"
   },
   "dependencies": {
     "flow-enums-runtime": "^0.0.6",

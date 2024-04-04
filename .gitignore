@@ -110,6 +110,7 @@ package-lock.json
 .ruby-version
 /**/.ruby-version
 vendor/
+packages/rn-tester/.bundle/config
 
 # iOS / CocoaPods
 /packages/react-native/template/ios/build/
