@@ -21,7 +21,10 @@
     "setup-ios-jsc": "bundle install && USE_HERMES=0 bundle exec pod install",
     "setup-ios-hermes": "bundle install && USE_HERMES=1 bundle exec pod install",
     "clean-ios": "rm -rf build/generated/ios Pods Podfile.lock",
-    "setup-ruby-env": "mkdir -p .bundle && cp ../../.bundle/config .bundle && bundle install"
+    "setup-ruby-env": "mkdir -p .bundle && cp ../../.bundle/config .bundle && bundle install",
+    "setup-ios-new-arch": "RCT_NEW_ARCH_ENABLED=1 USE_HERMES=1 bundle exec pod install",
+    "clone-hermes-repo": "rm -rf ../react-native/sdks/hermes-engine/src && git clone --recurse-submodules --branch $(tr -d '\n' < ../react-native/sdks/.hermesversion) --depth 1 -- https://github.com/facebook/hermes.git ../react-native/sdks/hermes-engine/src",
+    "setup-ios-new-arch-use-local-hermes": "npm run clean-ios && npm run clone-hermes-repo && REACT_NATIVE_OVERRIDE_HERMES_DIR=\"$(realpath ../react-native/sdks/hermes-engine/src)\" BUILD_FROM_SOURCE=true RCT_NEW_ARCH_ENABLED=1 USE_HERMES=1 bundle exec pod install"
   },
   "dependencies": {
     "flow-enums-runtime": "^0.0.6",

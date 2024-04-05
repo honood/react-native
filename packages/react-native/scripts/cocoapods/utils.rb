@@ -44,6 +44,9 @@ class ReactNativePodsUtils
     def self.set_gcc_preprocessor_definition_for_React_hermes(installer)
         self.add_build_settings_to_pod(installer, "GCC_PREPROCESSOR_DEFINITIONS", "HERMES_ENABLE_DEBUGGER=1", "React-hermes", "Debug")
         self.add_build_settings_to_pod(installer, "GCC_PREPROCESSOR_DEFINITIONS", "HERMES_ENABLE_DEBUGGER=1", "hermes-engine", "Debug")
+        # fix: cannot use debugger in Google Chrome
+        # https://reactnative.dev/docs/debugging?js-debugger=new-debugger#opening-the-debugger 
+        self.add_build_settings_to_pod(installer, "GCC_PREPROCESSOR_DEFINITIONS", "HERMES_ENABLE_DEBUGGER=1", "React-RuntimeHermes", "Debug")
     end
 
     def self.turn_off_resource_bundle_react_core(installer)
@@ -189,13 +192,13 @@ class ReactNativePodsUtils
         installer.target_installation_results.pod_target_installation_results.each do |pod_name, target_installation_result|
             if pod_name.to_s == target_pod_name
                 target_installation_result.native_target.build_configurations.each do |config|
-                        if configuration == nil || (configuration != nil && configuration == config.name)
-                            config.build_settings[settings_name] ||= '$(inherited) '
-                            config.build_settings[settings_name] << settings_value
-                        end
+                    if configuration == nil || (configuration != nil && configuration == config.name)
+                        config.build_settings[settings_name] ||= '$(inherited) '
+                        config.build_settings[settings_name] << settings_value
                     end
                 end
             end
+        end
     end
 
     def self.fix_library_search_path(config)
@@ -228,8 +231,8 @@ class ReactNativePodsUtils
         end
 
         if !file_manager.exist?("#{file_path}.local")
-            node_binary = `command -v node`
-            system("echo 'export NODE_BINARY=#{node_binary}' > #{file_path}.local")
+            # fix: an error when running custom shell script '[CP-User] Generate Specs' in target 'React-Codegen' from project 'Pods'
+            system("echo 'export NODE_BINARY=\"$(command -v node)\"' > #{file_path}.local")
         end
     end
 

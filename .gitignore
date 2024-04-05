@@ -140,6 +140,7 @@ packages/rn-tester/.bundle/config
 /packages/react-native/sdks/hermes
 /packages/react-native/sdks/hermesc
 /packages/react-native/sdks/hermes-engine/hermes-engine-from-local-source-dir.tar.gz
+/packages/react-native/sdks/hermes-engine/src
 
 # Visual studio
 .vscode
